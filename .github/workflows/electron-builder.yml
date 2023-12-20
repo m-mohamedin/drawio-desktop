@@ -37,10 +37,10 @@ jobs:
       with:
         repository: jgraph/drawio-dev
         token: ${{ secrets.DRAWIO_GH_TOKEN }}
-        ref: ${{ github.ref }}
+        ref: release
         path: drawio
         submodules: false
-    - name: Get Submodule
+    - name: Get drawio Submodule
       run: |
         cd drawio
         git config --global --add safe.directory '*'
