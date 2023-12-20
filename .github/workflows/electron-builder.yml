@@ -2,15 +2,13 @@ name: Electron Builder CI
 
 on:
   push:
-    tags:
-      - 'v*'
 
 jobs:
   build:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-latest]
     env:
       CC: clang
       CXX: clang++ 
@@ -25,7 +23,24 @@ jobs:
       OS_NAME: ${{ matrix.os }}
     steps:
     - name: Checkout reposistory
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
+      with:
+        submodules: false
+    - name: Checkout drawio-dev
+      uses: actions/checkout@v4
+      with:
+        repository: jgraph/drawio-dev
+        token: ${{ secrets.DRAWIO_GH_TOKEN }}
+        ref: release
+        path: drawio
+        submodules: false
+    - name: Get Submodule
+      run: |
+        cd drawio
+        git config --global --add safe.directory '*'
+        git submodule init
+        git config submodule.src/main/webapp/resources.url  https://${{secrets.I18N_USERNAME}}:${{secrets.I18N_ACCESS_KEY}}@github.com/jgraph/drawio-i18n.git
+        git submodule update --init --recursive
     - name: Installing Node
       uses: actions/setup-node@v3
       with:
@@ -43,11 +58,3 @@ jobs:
         if [ "$OS_NAME" = "ubuntu-latest" ]; then sed -ie 's/"asar": true,/"asar": true,\n"productName": "drawio",/' electron-builder-linux-mac.json; fi 
         yarn run sync
         yarn run release-linux
-    - name: Build for Snap
-      if: ${{ matrix.os == 'ubuntu-latest' }}
-      run: |
-        #To generate SNAP_TOKEN run `snapcraft export-login [FILE]` and login with your snapcraft credentials. It is used now without login
-        sudo snap install snapcraft --classic
-        yarn run release-snap
-        # Cannot configure electron-builder to publish to stable channel, so do it explicitly
-        snapcraft push --release edge dist/draw.io-amd64-*.snap
