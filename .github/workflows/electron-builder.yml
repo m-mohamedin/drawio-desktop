@@ -46,7 +46,10 @@ jobs:
         cd drawio
         # Get the current build tag from draw.io
         git fetch --all --tags --prune
-        git checkout ${GH_REF/refs\//} -b release
+        export tmp1=${GH_REF/refs\//}
+        export tmp2=${tmp1/\/v/\/diagramly-}
+        export tmp3=${tmp2//\./_}
+        git checkout $tmp3 -b release
         # Get submodules of draw.io
         git config --global --add safe.directory '*'
         git submodule init
