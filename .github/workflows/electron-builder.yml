@@ -56,8 +56,8 @@ jobs:
         curl -o- -L https://yarnpkg.com/install.sh | bash
         export PATH="$HOME/.yarn/bin:$PATH"
         # Use sed to replace the SSH URL with the public URL, then initialize submodules
-        sed -ie 's/git@github.com:/https:\/\/github.com\//' .gitmodules
-        git submodule update --init --recursive
+        #sed -ie 's/git@github.com:/https:\/\/github.com\//' .gitmodules
+        #git submodule update --init --recursive
         sudo npm install -g yarn
         yarn install
         if [ "$OS_NAME" = "ubuntu-latest" ]; then sed -ie 's/"asar": true,/"asar": true,\n"productName": "drawio",/' electron-builder-linux-mac.json; fi 
