@@ -2,7 +2,8 @@ name: Electron Builder CI
 
 on:
   push:
-
+    tags:
+      - 'v*'
 jobs:
   build:
     runs-on: ${{ matrix.os }}
@@ -36,7 +37,7 @@ jobs:
       with:
         repository: jgraph/drawio-dev
         token: ${{ secrets.DRAWIO_GH_TOKEN }}
-        ref: release
+        ref: ${{ github.ref }}
         path: drawio
         submodules: false
     - name: Get Submodule
