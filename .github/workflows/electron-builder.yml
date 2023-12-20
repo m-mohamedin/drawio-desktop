@@ -26,6 +26,11 @@ jobs:
       uses: actions/checkout@v4
       with:
         submodules: false
+    - name: Remove drawio submodule
+      run: |
+        rm .gitmodules
+        rm -rf drawio
+        mkdir drawio
     - name: Checkout drawio-dev
       uses: actions/checkout@v4
       with:
