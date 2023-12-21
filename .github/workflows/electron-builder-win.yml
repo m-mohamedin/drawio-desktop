@@ -35,7 +35,8 @@ jobs:
         cd drawio
         # Get the current build tag from draw.io
         $tmp=$Env:GH_REF -replace '/v','/diagramly-' -replace '[.]','_'
-        git fetch origin $tmp:$tmp --no-tags
+        $ref=$tmp+':'+$tmp
+        git fetch origin $ref --no-tags
         $tmp=$tmp -replace 'refs/',''
         git checkout $tmp -b tmp-deploy
         # Get submodules of draw.io
