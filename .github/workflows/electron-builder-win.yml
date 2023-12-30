@@ -34,7 +34,9 @@ jobs:
         $tmp=$tmp -replace 'refs/',''
         git checkout $tmp -b tmp-deploy
         Copy-Item -Path "src\main\webapp\js\*.min.js"  -Destination "..\drawio\src\main\webapp\js\"
+        dir src\main\webapp\js\*.min.js
         cd ..
+        dir
         Remove-Item 'drawio-dev' -Recurse
     - name: Installing Node
       uses: actions/setup-node@v3
