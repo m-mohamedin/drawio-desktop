@@ -29,9 +29,6 @@ jobs:
       uses: actions/checkout@v4
       with:
         submodules: true
-    - name: Remove drawio submodule
-      run: |
-        mkdir drawio-dev
     - name: Checkout drawio-dev
       uses: actions/checkout@v4
       with:
@@ -55,7 +52,7 @@ jobs:
     - name: Installing Node
       uses: actions/setup-node@v3
       with:
-        node-version: 16
+        node-version: 20
     - name: Build for ${{ matrix.os}}
       run: |
         if [ "$OS_NAME" = "ubuntu-latest" ]; then sudo apt-get update && sudo apt-get install -y icnsutils graphicsmagick xz-utils rpm; fi
@@ -66,11 +63,5 @@ jobs:
         if [ "$OS_NAME" = "ubuntu-latest" ]; then sed -ie 's/"asar": true,/"asar": true,\n"productName": "drawio",/' electron-builder-linux-mac.json; fi 
         yarn run sync
         yarn run release-linux
-    - name: Build for Snap
-      if: ${{ matrix.os == 'ubuntu-latest' }}
-      run: |
-        #To generate SNAP_TOKEN run `snapcraft export-login [FILE]` and login with your snapcraft credentials. It is used now without login
-        sudo snap install snapcraft --classic
-        yarn run release-snap
-        # Cannot configure electron-builder to publish to stable channel, so do it explicitly
-        snapcraft push --release edge dist/draw.io-amd64-*.snap
+        ls -lh dist
+
