@@ -37,7 +37,7 @@ jobs:
         dir src\main\webapp\js\*.min.js
         cd ..
         dir
-        Remove-Item 'drawio-dev' -Recurse
+        Remove-Item 'drawio-dev' -Recurse -Force
     - name: Installing Node
       uses: actions/setup-node@v3
       with:
