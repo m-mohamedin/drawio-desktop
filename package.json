@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:jgraph/drawio-desktop.git"
+    "url": "git@github.com:m-mohamedin/drawio-desktop.git"
   },
   "keywords": [
     "draw.io",
@@ -22,12 +22,12 @@
     "flowchart",
     "UML"
   ],
-  "author": "JGraph <support@draw.io>",
+  "author": "m-mohamedin <support@draw.io>",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/jgraph/drawio-desktop/issues"
+    "url": "https://github.com/m-mohamedin/drawio-desktop/issues"
   },
-  "homepage": "https://github.com/jgraph/drawio",
+  "homepage": "https://github.com/m-mohamedin/drawio",
   "dependencies": {
     "commander": "^11.1.0",
     "compression": "^1.7.4",
